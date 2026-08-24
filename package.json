@@ -11,7 +11,7 @@
     "url": "git+https://github.com/snarasimhan13/csc-3100-ie0.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "snarasimhan13",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
