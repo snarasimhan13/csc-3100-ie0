@@ -28,15 +28,22 @@ function MyApp() {
 
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
+    delUser(index)
+      .then((response) => {
+        if (response.status === 204){
+          const updated = characters.filter((character) => character.id !== id);
+          setCharacters(updated);
+        }
+        else {
+          console.log("couldn't dellete")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }
 
-  function updateList(person) {
-    setCharacters([...characters, person]);
-  }
 
   function fetchUsers() {
     const promise = fetch("http://localhost:8000/users");
@@ -44,7 +51,7 @@ function MyApp() {
   }
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    const promise = fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,9 +62,25 @@ function MyApp() {
     return promise;
   }
 
+  // help
+  function delUser(id) {
+    const promise = fetch("http://localhost:8000/users/" + id, {
+      method: "DELETE",
+    });
+    return promise;
+  }
+
   function updateList(person) {
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json().then((newUser) => {
+            setCharacters([...characters, newUser]);
+          });
+        } else{
+            console.log("could not insert")
+        }
+      })
       .catch((error) => {
         console.log(error);
       });

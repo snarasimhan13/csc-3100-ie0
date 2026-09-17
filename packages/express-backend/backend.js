@@ -47,6 +47,11 @@ const addUser = (user) => {
   return user;
 };
 
+// fix this part
+const generateRandId = () => {
+  return Math.round(Math.random() * 1000000);
+};
+
 
 app.use(cors());
 
@@ -91,8 +96,9 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd.id = generateRandId();
   addUser(userToAdd);
-  res.send();
+  res.status(201).send(userToAdd);
 });
 
 // task 7 - p1
@@ -104,7 +110,8 @@ app.delete("/users/:id", (req, res) => {
         res.status(404).send("Resource not found.");
     } else {
         users["users_list"] = users["users_list"].filter((user) => user.id !== id);
-         // just delete ,,,,
+        res.status(204).send();
+        // just delete ,,,,
     }
 
 });
