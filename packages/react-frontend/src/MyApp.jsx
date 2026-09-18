@@ -27,8 +27,8 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
 
 
-  function removeOneCharacter(index) {
-    delUser(index)
+  function removeOneCharacter(id) {
+    delUser(id)
       .then((response) => {
         if (response.status === 204){
           const updated = characters.filter((character) => character.id !== id);
@@ -38,9 +38,7 @@ function MyApp() {
           console.log("couldn't dellete")
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error));
 
   }
 

@@ -49,7 +49,7 @@ const addUser = (user) => {
 
 // fix this part
 const generateRandId = () => {
-  return Math.round(Math.random() * 1000000);
+  return Math.round(Math.random() * 10000000).toString();
 };
 
 
